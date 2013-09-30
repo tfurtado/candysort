@@ -15,6 +15,28 @@ use \Meritt\CandySort\Domain\Exam;
 class ExamSorter
 {
     /**
+     * Avaliador de notas
+     *
+     * Avaliador que será usado para calcular a nota dos gabaritos.
+     *
+     * @var ExamGrader
+     */
+    private $grader;
+
+    /**
+     * Inicializa o ordenador
+     *
+     * Inicializa o ordenador com uma instância do avaliador de notas para
+     * a prova em questão.
+     *
+     * @param \Meritt\CandySort\Domain\Exam $exam
+     */
+    public function __construct(Exam $exam)
+    {
+        $this->grader = new ExamGrader($exam);
+    }
+
+    /**
      * Ordena uma lista de candidatos ascendentemente de acordo com a nota
      * obtida na prova.
      *
@@ -26,7 +48,14 @@ class ExamSorter
      */
     public function sort(array $allCandidateAnswers)
     {
-        throw new \LogicException("Not implemented");
+        $sortedList = array();
+        foreach ($allCandidateAnswers as $candidateAnswers) {
+            $grade = $this->grader->grade($candidateAnswers);
+            $sortedList[$grade] = $candidateAnswers;
+        }
+        ksort($sortedList);
+
+        return $sortedList;
     }
 
 }

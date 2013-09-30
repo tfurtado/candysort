@@ -16,11 +16,38 @@ use \Meritt\CandySort\Domain\CandidateAnswers;
 class ExamGrader
 {
     /**
+     * Prova a ser avaliada
+     * @var \Meritt\CandySort\Domain\Exam
+     */
+    private $exam;
+
+    /**
+     * Inicializa o avaliador
+     *
+     * Inicializa o avaliador de notas com os dados da prova a ser avaliada.
+     *
+     * @param \Meritt\CandySort\Domain\Exam $exam
+     */
+    public function __construct(Exam $exam)
+    {
+        $this->exam = $exam;
+    }
+
+    /**
      * Calcula a nota de um determinado candidato
      *
      * @param \Meritt\CandySort\Domain\CandidateAnswers $candidateAnswers
      */
     public function grade(CandidateAnswers $candidateAnswers) {
-        throw new \LogicException("Not implemented");
+        $grade = 0;
+
+        $answers = $candidateAnswers->getAnswers();
+        foreach ($this->exam->getQuestions() as $i => $question) {
+            if ($answers[$i] == $question->getCorrectOption()) {
+                $grade += $question->getPoints();
+            }
+        }
+
+        return $grade;
     }
 }
