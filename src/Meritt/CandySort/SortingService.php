@@ -17,7 +17,9 @@ class SortingService
     /**
      * @param \Meritt\CandySort\Domain\Exam $exam
      * @param \Meritt\CandySort\Domain\CandidateAnswers[] $allCandidateAnswers
-     * @param \Meritt\Business\AttributeFilter[] $filters
+     * @param \Meritt\CandySort\Business\AttributeFilter[] $filters
+     * @return \Meritt\CandySort\Domain\Candidate[]
+     *         Lista de candidatos ordenada e filtrada
      */
     public static function getSortedCandidates($exam, $allCandidateAnswers,
         $filters = array())

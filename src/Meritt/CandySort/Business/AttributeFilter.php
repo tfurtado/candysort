@@ -36,7 +36,7 @@ abstract class AttributeFilter
      * @param string $attribute Nome do atributo a ser filtrado
      * @param string $value Valor a ser utilizado no filtro
      */
-    function __construct($attribute, $value)
+    public function __construct($attribute, $value)
     {
         $this->attribute = $attribute;
         $this->value = $value;

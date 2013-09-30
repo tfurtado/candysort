@@ -37,6 +37,7 @@ class ExamGrader
      * Calcula a nota de um determinado candidato
      *
      * @param \Meritt\CandySort\Domain\CandidateAnswers $candidateAnswers
+     * @return int A nota do candidato
      */
     public function grade(CandidateAnswers $candidateAnswers) {
         $grade = 0;
