@@ -1,0 +1,13 @@
+{
+  "name": "meritt/candysort",
+  "description": "Project developed for Full Stack Developer Technical Challenge",
+  "license": "proprietary",
+
+  "autoload": {
+    "psr-0": { "": [ "src/", "tests/src/" ] }
+  },
+
+  "require": {
+    "phpunit/phpunit": "3.7.*"
+  }
+}
