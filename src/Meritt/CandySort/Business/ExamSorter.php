@@ -53,7 +53,7 @@ class ExamSorter
             $grade = $this->grader->grade($candidateAnswers);
             $sortedList[$grade] = $candidateAnswers;
         }
-        ksort($sortedList);
+        krsort($sortedList);
 
         return $sortedList;
     }
