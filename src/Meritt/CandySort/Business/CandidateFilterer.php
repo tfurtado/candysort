@@ -47,12 +47,12 @@ class CandidateFilterer
      * @param \Meritt\CandySort\Business\AttributeFilter $filter
      *        Filtro que será aplicado à lista de candidatos.
      */
-    public function filter(AttributeFilter $filter)
+    public function applyFilter(AttributeFilter $filter)
     {
         $newCandidateAnswers = array();
-        foreach ($this->candidateAnswers as $candidate) {
-            if ($filter->isFiltered($candidate)) {
-                $newCandidateAnswers[] = $candidate;
+        foreach ($this->candidateAnswers as $candidateAnswers) {
+            if ($filter->isFiltered($candidateAnswers->getCandidate())) {
+                $newCandidateAnswers[] = $candidateAnswers;
             }
         }
         $this->candidateAnswers = $newCandidateAnswers;

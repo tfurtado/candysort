@@ -6,7 +6,7 @@ namespace Meritt\CandySort\Domain;
  * Representa uma prova
  *
  * Armazena a data de realização da prova e a lista de itens que a compõem.
- * 
+ *
  * @author Tiago Furtado <contato at tiagofurtado.com>
  */
 class Exam
@@ -54,9 +54,10 @@ class Exam
         return $this->questions;
     }
 
-    public function setQuestions($questions)
+    public function addQuestion(Question $question)
     {
-        $this->questions = $questions;
+        $this->questions[] = $question;
+        $question->setExam($this);
     }
 
 

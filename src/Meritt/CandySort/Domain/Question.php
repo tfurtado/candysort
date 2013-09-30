@@ -48,6 +48,11 @@ class Question
      */
     private $correctOption;
 
+    function __construct()
+    {
+        $this->options = array();
+    }
+
     public function getId()
     {
         return $this->id;
@@ -83,7 +88,7 @@ class Question
         return $this->exam;
     }
 
-    public function setExam(\Meritt\CandySort\Domain\Exam $exam)
+    public function setExam(Exam $exam)
     {
         $this->exam = $exam;
     }
@@ -93,9 +98,10 @@ class Question
         return $this->options;
     }
 
-    public function setOptions(\Meritt\CandySort\Domain\Option $options)
+    public function addOption(Option $option)
     {
-        $this->options = $options;
+        $this->options[] = $option;
+        $option->setQuestion($this);
     }
 
     public function getCorrectOption()
