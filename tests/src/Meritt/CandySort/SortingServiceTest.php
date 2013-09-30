@@ -4,6 +4,8 @@ namespace Meritt\CandySort;
 use \Meritt\CandySort\SortingService;
 use \Data\CreateCandidateData;
 use \Data\CreateExamData;
+use \Meritt\CandySort\Business\ExamSorter;
+use \Meritt\CandySort\Business\CandidateFilterer;
 use \Meritt\CandySort\Business\AttributeFilterEquals;
 use \Meritt\CandySort\Business\AttributeFilterContains;
 
@@ -23,12 +25,21 @@ class SortingServiceTest extends \PHPUnit_Framework_TestCase
     protected $allCandidateAnswers;
 
     /**
+     * @var \Meritt\CandySort\SortingService
+     */
+    protected $sortingService;
+
+    /**
      * Inicializa dados base para os testes: prova e gabaritos dos candidatos
      */
     protected function setUp()
     {
         $this->exam = CreateExamData::create();
         $this->allCandidateAnswers = CreateCandidateData::create();
+
+        $sorter = new ExamSorter($this->exam);
+        $filterer = new CandidateFilterer( $this->allCandidateAnswers);
+        $this->sortingService = new SortingService($sorter, $filterer);
     }
 
     /**
@@ -47,7 +58,7 @@ class SortingServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testCase1()
     {
-        SortingService::getSortedCandidates(
+        $this->sortingService->getSortedCandidates(
             null, null, null
         );
     }
@@ -68,7 +79,7 @@ class SortingServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testCase2()
     {
-        SortingService::getSortedCandidates(
+        $this->sortingService->getSortedCandidates(
             $this->exam, null, null
         );
     }
@@ -89,7 +100,7 @@ class SortingServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testCase3()
     {
-        SortingService::getSortedCandidates(
+        $this->sortingService->getSortedCandidates(
             $this->exam, $this->allCandidateAnswers, null
         );
     }
@@ -110,7 +121,7 @@ class SortingServiceTest extends \PHPUnit_Framework_TestCase
     {
         $filters = array();
 
-        $sorted = SortingService::getSortedCandidates(
+        $sorted = $this->sortingService->getSortedCandidates(
             $this->exam, $this->allCandidateAnswers, $filters
         );
 
@@ -141,7 +152,7 @@ class SortingServiceTest extends \PHPUnit_Framework_TestCase
             new AttributeFilterEquals('state', 'SC')
         );
 
-        $sorted = SortingService::getSortedCandidates(
+        $sorted = $this->sortingService->getSortedCandidates(
             $this->exam, $this->allCandidateAnswers, $filters
         );
 
@@ -169,7 +180,7 @@ class SortingServiceTest extends \PHPUnit_Framework_TestCase
             new AttributeFilterContains('name', 'A')
         );
 
-        $sorted = SortingService::getSortedCandidates(
+        $sorted = $this->sortingService->getSortedCandidates(
             $this->exam, $this->allCandidateAnswers, $filters
         );
 
@@ -201,7 +212,7 @@ class SortingServiceTest extends \PHPUnit_Framework_TestCase
             new AttributeFilterContains('email', 'L')
         );
 
-        $sorted = SortingService::getSortedCandidates(
+        $sorted = $this->sortingService->getSortedCandidates(
             $this->exam, $this->allCandidateAnswers, $filters
         );
 

@@ -14,7 +14,7 @@ use \Meritt\CandySort\Domain\Candidate;
  *
  * @author Tiago Furtado <contato at tiagofurtado.com>
  */
-abstract class AttributeFilter
+abstract class AttributeFilter extends Filter
 {
     /**
      * Nome do atributo a ser filtrado
@@ -48,31 +48,34 @@ abstract class AttributeFilter
      * O filtro verifica se o valor do atributo a ser filtrado atende aos
      * critérios estabelecidos no filtro.
      *
-     * @param \Meritt\CandySort\Domain\Candidate $candidate
+     * @param \Meritt\CandySort\Domain\Candidate $object
      *        Candidato a ser verificado
      * @throws \InvalidArgumentException Caso seja fornecido um nome de atributo
      *                                   inválido para o filtro.
      * @return bool <b>true</b> caso o candidato atenda ao filtro.
      *              <b>false</b> caso contrário.
      */
-    public function isFiltered(Candidate $candidate) {
-        $attributeValue = null;
-        switch ($this->attribute) {
-            case 'name':
-                $attributeValue = $candidate->getName();
-                break;
+    public function isFiltered($object)
+    {
+        if ($object instanceof Candidate) {
+            $attributeValue = null;
+            switch ($this->attribute) {
+                case 'name':
+                    $attributeValue = $object->getName();
+                    break;
 
-            case 'email':
-                $attributeValue = $candidate->getEmail();
-                break;
+                case 'email':
+                    $attributeValue = $object->getEmail();
+                    break;
 
-            case 'state':
-                $attributeValue = $candidate->getState();
-                break;
-        }
+                case 'state':
+                    $attributeValue = $object->getState();
+                    break;
+            }
 
-        if ($attributeValue !== null) {
-            return $this->checkFilter($attributeValue);
+            if ($attributeValue !== null) {
+                return $this->checkFilter($attributeValue);
+            }
         }
 
         throw new \InvalidArgumentException();

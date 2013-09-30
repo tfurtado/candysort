@@ -2,8 +2,6 @@
 
 namespace Meritt\CandySort\Business;
 
-use Meritt\CandySort\Domain\CandidateAnswers;
-
 /**
  * Filtrador de resultados
  *
@@ -12,7 +10,7 @@ use Meritt\CandySort\Domain\CandidateAnswers;
  *
  * @author Tiago Furtado <contato at tiagofurtado.com>
  */
-class CandidateFilterer
+class CandidateFilterer extends Filterer
 {
     /**
      * Lista de candidatos
@@ -37,33 +35,24 @@ class CandidateFilterer
         $this->candidateAnswers = $candidateAnswers;
     }
 
-    /**
-     * Aplica um filtro à lista de candidatos
-     *
-     * Aplica o filtro passado como parâmetro a cada um dos gabaritos da lista
-     * e retira todos os gabaritos cujos candidatos não atendam aos critérios do
-     * filtro.
-     *
-     * @param \Meritt\CandySort\Business\AttributeFilter $filter
-     *        Filtro que será aplicado à lista de candidatos.
-     */
-    public function applyFilter(AttributeFilter $filter)
+    public function applyFilter(Filter $filter)
     {
-        $newCandidateAnswers = array();
-        foreach ($this->candidateAnswers as $candidateAnswers) {
-            if ($filter->isFiltered($candidateAnswers->getCandidate())) {
-                $newCandidateAnswers[] = $candidateAnswers;
+        if ($filter instanceof AttributeFilter) {
+            $newCandidateAnswers = array();
+            foreach ($this->candidateAnswers as $candidateAnswers) {
+                if ($filter->isFiltered($candidateAnswers->getCandidate())) {
+                    $newCandidateAnswers[] = $candidateAnswers;
+                }
             }
+            $this->candidateAnswers = $newCandidateAnswers;
+        } else {
+            throw new \InvalidArgumentException(
+                "Only AttributeFilter filters can be applied within CandidateFilterer"
+            );
         }
-        $this->candidateAnswers = $newCandidateAnswers;
     }
 
-    /**
-     * Obtém a lista de gabaritos
-     *
-     * @return \Meritt\CandySort\Domain\CandidateAnswers[]
-     */
-    public function getCandidateAnswers()
+    public function getFilteredItems()
     {
         return $this->candidateAnswers;
     }

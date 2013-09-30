@@ -3,8 +3,8 @@
 namespace Meritt\CandySort;
 
 use \Meritt\CandySort\Domain\Exam;
-use \Meritt\CandySort\Business\ExamSorter;
-use \Meritt\CandySort\Business\CandidateFilterer;
+use \Meritt\CandySort\Business\Sorter;
+use \Meritt\CandySort\Business\Filterer;
 
 /**
  * Description of OrderingService
@@ -13,6 +13,22 @@ use \Meritt\CandySort\Business\CandidateFilterer;
  */
 class SortingService
 {
+    /**
+     * @var \Meritt\CandySort\Business\Sorter
+     */
+    private $sorter;
+
+    /**
+     *
+     * @var \Meritt\CandySort\Business\Filterer
+     */
+    private $filterer;
+
+    public function __construct(Sorter $sorter, Filterer $filterer)
+    {
+        $this->sorter = $sorter;
+        $this->filterer = $filterer;
+    }
 
     /**
      * @param \Meritt\CandySort\Domain\Exam $exam
@@ -21,7 +37,7 @@ class SortingService
      * @return \Meritt\CandySort\Domain\Candidate[]
      *         Lista de candidatos ordenada e filtrada
      */
-    public static function getSortedCandidates($exam, $allCandidateAnswers,
+    public function getSortedCandidates($exam, $allCandidateAnswers,
         $filters = array())
     {
         if (!$exam instanceof Exam) {
@@ -36,14 +52,13 @@ class SortingService
             throw new \InvalidArgumentException('$filters must be an array');
         }
 
-        $filterer = new CandidateFilterer($allCandidateAnswers);
-        $sorter = new ExamSorter($exam);
-
         foreach ($filters as $filter) {
-            $filterer->applyFilter($filter);
+            $this->filterer->applyFilter($filter);
         }
 
-        $sortedCandidateAnswers = $sorter->sort($filterer->getCandidateAnswers());
+        $sortedCandidateAnswers = $this->sorter->sort(
+            $this->filterer->getFilteredItems()
+        );
         $sortedCandidates = array();
         foreach ($sortedCandidateAnswers as $candidateAnswers) {
             $sortedCandidates[] = $candidateAnswers->getCandidate();

@@ -35,7 +35,7 @@ class CandidateFiltererTest extends \PHPUnit_Framework_TestCase
      */
     public function testNoFilterApplied()
     {
-        $list = $this->filterer->getCandidateAnswers();
+        $list = $this->filterer->getFilteredItems();
         $this->assertEquals($this->allCandidateAnswers, $list);
     }
 
@@ -48,7 +48,7 @@ class CandidateFiltererTest extends \PHPUnit_Framework_TestCase
         $filter = new AttributeFilterContains('email', 'meritt');
         $this->filterer->applyFilter($filter);
 
-        $list = $this->filterer->getCandidateAnswers();
+        $list = $this->filterer->getFilteredItems();
         $this->assertEquals($this->allCandidateAnswers, $list);
     }
 
@@ -61,7 +61,7 @@ class CandidateFiltererTest extends \PHPUnit_Framework_TestCase
         $filter = new AttributeFilterContains('name', 'A');
         $this->filterer->applyFilter($filter);
 
-        $list = $this->filterer->getCandidateAnswers();
+        $list = $this->filterer->getFilteredItems();
         $this->assertEquals(array(
             $this->allCandidateAnswers[1],
             $this->allCandidateAnswers[2],
@@ -79,7 +79,7 @@ class CandidateFiltererTest extends \PHPUnit_Framework_TestCase
         $filter = new AttributeFilterEquals('name', 'John Doe');
         $this->filterer->applyFilter($filter);
 
-        $list = $this->filterer->getCandidateAnswers();
+        $list = $this->filterer->getFilteredItems();
         $this->assertEquals(array(), $list);
     }
 }

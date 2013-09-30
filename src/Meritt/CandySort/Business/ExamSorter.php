@@ -12,7 +12,7 @@ use \Meritt\CandySort\Domain\Exam;
  *
  * @author Tiago Furtado <contato at tiagofurtado.com>
  */
-class ExamSorter
+class ExamSorter extends Sorter
 {
     /**
      * Avaliador de notas
@@ -46,10 +46,10 @@ class ExamSorter
      *         Lista de gabaritos de candidatos ordenada descendentemente por
      *         nota na prova
      */
-    public function sort(array $allCandidateAnswers)
+    public function sort(array $items)
     {
         $sortedList = array();
-        foreach ($allCandidateAnswers as $candidateAnswers) {
+        foreach ($items as $candidateAnswers) {
             $grade = $this->grader->grade($candidateAnswers);
             $sortedList[$grade] = $candidateAnswers;
         }
