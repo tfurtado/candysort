@@ -8,9 +8,9 @@ From the briefing (in portuguese):
 > Sua tarefa consiste na modelagem e desenvolvimento de um serviço de ordenação
 > e filtragem de candidatos de uma prova.
 
-It's name (pun intended) was set upon the sweet qualities that some candidates
+It is named upon an intended pun on the sweet qualities that some candidates
 exhibit, specially [this one](http://github.com/tfurtado). In portuguese one
-could say they are "uns doces" ;-)
+could say candidates are "uns doces" ;-)
 
 ## Dependencies
 - [PHP](http://php.net/) version >= 5.4.0
