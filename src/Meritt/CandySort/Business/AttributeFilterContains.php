@@ -3,7 +3,7 @@
 namespace Meritt\CandySort\Business;
 
 /**
- * Description of AttributeFilterContains
+ * Filtro do tipo: atributo <b>contém</b> <i>valor</i>
  *
  * @author Tiago Furtado <contato at tiagofurtado.com>
  */
