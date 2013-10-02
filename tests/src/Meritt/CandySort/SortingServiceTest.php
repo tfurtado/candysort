@@ -2,8 +2,8 @@
 namespace Meritt\CandySort;
 
 use \Meritt\CandySort\SortingService;
-use \Data\CreateCandidateData;
-use \Data\CreateExamData;
+use \TestData\CreateCandidateData;
+use \TestData\CreateExamData;
 use \Meritt\CandySort\Business\ExamSorter;
 use \Meritt\CandySort\Business\CandidateFilterer;
 use \Meritt\CandySort\Business\AttributeFilterEquals;
