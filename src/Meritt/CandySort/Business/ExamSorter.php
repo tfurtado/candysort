@@ -48,12 +48,20 @@ class ExamSorter extends Sorter
      */
     public function sort(array $items)
     {
-        $sortedList = array();
+        $gradedList = array();
         foreach ($items as $candidateAnswers) {
             $grade = $this->grader->grade($candidateAnswers);
-            $sortedList[$grade] = $candidateAnswers;
+            if (! isset($gradedList[$grade])) {
+                $gradedList[$grade] = array();
+            }
+            $gradedList[$grade][] = $candidateAnswers;
         }
-        krsort($sortedList);
+        krsort($gradedList);
+
+        $sortedList = array();
+        foreach ($gradedList as $gradedCandidates) {
+            $sortedList = array_merge($sortedList, $gradedCandidates);
+        }
 
         return $sortedList;
     }
