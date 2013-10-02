@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <h1>CandySort demo webapp</h1>
+    <h1>CandySort demo webapp v1.1</h1>
     <form action="result.php" method="post">
         <fieldset>
             <legend>Candidate answers</legend>
