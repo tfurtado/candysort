@@ -28,6 +28,19 @@ document, run:
 
 ## Usage
 
+### End-user
+
+A sample webapp is available to test the basic sorting and filtering functions.
+To launch the built-in PHP webserver from the command line on port 8000 to check
+the CandySort webapp out, do the following, from the project directory:
+
+    $ php -S localhost:8000 -t web
+
+After that, point your browser to [http://localhost:8000](http://localhost:8000)
+to run the demo app.
+
+### Developers
+
 The CandySort Sorting Service can be used instancing the class
 \Meritt\CandySort\SortingService. There must be given two parameters:
 
