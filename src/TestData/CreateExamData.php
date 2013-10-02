@@ -1,6 +1,6 @@
 <?php
 
-namespace Data;
+namespace TestData;
 
 use \Meritt\CandySort\Domain\Exam;
 use \Meritt\CandySort\Domain\Question;

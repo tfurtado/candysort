@@ -42,19 +42,6 @@ abstract class AttributeFilter extends Filter
         $this->value = $value;
     }
 
-    /**
-     * Verifica se um determinado candidato atende aos critérios do filtro
-     *
-     * O filtro verifica se o valor do atributo a ser filtrado atende aos
-     * critérios estabelecidos no filtro.
-     *
-     * @param \Meritt\CandySort\Domain\Candidate $object
-     *        Candidato a ser verificado
-     * @throws \InvalidArgumentException Caso seja fornecido um nome de atributo
-     *                                   inválido para o filtro.
-     * @return bool <b>true</b> caso o candidato atenda ao filtro.
-     *              <b>false</b> caso contrário.
-     */
     public function isFiltered($object)
     {
         if ($object instanceof Candidate) {

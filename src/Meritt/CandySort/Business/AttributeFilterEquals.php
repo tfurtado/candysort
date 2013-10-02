@@ -3,7 +3,7 @@
 namespace Meritt\CandySort\Business;
 
 /**
- * Description of AttributeEqualsFilter
+ * Filtro do tipo: atributo <b>é igual a</b> <i>valor</i>
  *
  * @author Tiago Furtado <contato at tiagofurtado.com>
  */
